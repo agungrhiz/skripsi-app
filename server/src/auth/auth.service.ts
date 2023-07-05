@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { CredentialsAuthInput } from './dto/credentials-auth.input';
-import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { JwtService } from '@nestjs/jwt'
+import * as bcrypt from 'bcrypt'
+
+import { CredentialsAuthInput } from '@/auth/dto/credentials-auth.input'
+import { PrismaService } from '@/prisma/prisma.service'
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     private prismaService: PrismaService,
-    private configService: ConfigService,
+    private configService: ConfigService
   ) {}
 
   async validateUser(email: string, password: string) {
@@ -18,15 +19,16 @@ export class AuthService {
       where: {
         email,
       },
-    });
+    })
 
-    const isValid = await bcrypt.compare(password, user.passwordHash);
+    const isValid = await bcrypt.compare(password, user.passwordHash)
 
     if (user && isValid) {
-      return user;
+      delete user.passwordHash
+      return user
     }
 
-    return null;
+    return null
   }
 
   async login(credentials: CredentialsAuthInput) {
@@ -34,19 +36,21 @@ export class AuthService {
       where: {
         email: credentials.email,
       },
-    });
+    })
+    delete user.passwordHash
+
     const accessToken = this.jwtService.sign(
       {
         sub: user.id,
         email: user.email,
-        role: user.role,
+        role: [user.role],
       },
       {
         expiresIn: '1h',
         secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
-      },
-    );
+      }
+    )
 
-    return { accessToken, user };
+    return { accessToken, user }
   }
 }

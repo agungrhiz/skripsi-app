@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
+import { PrismaClient } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
   const admin = await prisma.user.upsert({
@@ -15,7 +15,7 @@ async function main() {
       verificationToken: null,
       role: 'ADMINISTRATOR',
     },
-  });
+  })
 
   const staff = await prisma.user.upsert({
     where: { email: 'staff@admin.com' },
@@ -28,16 +28,16 @@ async function main() {
       verificationToken: null,
       role: 'STAFF',
     },
-  });
+  })
 
-  console.log({ admin, staff });
+  console.log({ admin, staff })
 }
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   })
   .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })

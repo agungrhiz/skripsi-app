@@ -1,32 +1,33 @@
-import { ObjectType, Field } from '@nestjs/graphql';
-import { Role } from 'src/roles/roles.enum';
+import { Field, ObjectType } from '@nestjs/graphql'
+
+import { Role } from '@/roles/roles.enum'
 
 @ObjectType()
 export class User {
   @Field()
-  id: string;
+  id: string
 
   @Field()
-  username: string;
+  username: string
 
   @Field()
-  email: string;
+  email: string
 
   @Field({ nullable: true })
-  passwordHash?: string;
+  passwordHash?: string
 
   @Field()
-  emailVerified: boolean;
+  emailVerified: boolean
 
   @Field({ nullable: true })
-  verificationToken?: string;
+  verificationToken?: string
 
   @Field()
-  role: Role;
+  role: Role
 
   @Field()
-  createdAt: Date;
+  createdAt: Date
 
   @Field()
-  updatedAt: Date;
+  updatedAt: Date
 }

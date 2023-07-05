@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthResolver } from './auth.resolver';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { LocalStrategy } from './strategies/local.strategy';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { RolesGuard } from 'src/roles/roles.guard';
-import { JwtService } from '@nestjs/jwt';
+import { Module } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+
+import { AuthResolver } from '@/auth/auth.resolver'
+import { AuthService } from '@/auth/auth.service'
+import { JwtStrategy } from '@/auth/strategies/jwt.strategy'
+import { LocalStrategy } from '@/auth/strategies/local.strategy'
+import { PrismaService } from '@/prisma/prisma.service'
+import { RolesGuard } from '@/roles/roles.guard'
 
 @Module({
   providers: [
