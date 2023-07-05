@@ -1,17 +1,29 @@
 import { Injectable } from '@nestjs/common'
 
+import { MailService } from '@/mail/mail.service'
 import { PrismaService } from '@/prisma/prisma.service'
 import { CreateUserInput } from '@/users/dto/create-user.input'
 import { UpdateUserInput } from '@/users/dto/update-user.input'
 
 @Injectable()
 export class UsersService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private mailService: MailService
+  ) {}
 
-  create(createUserInput: CreateUserInput) {
-    return this.prismaService.user.create({
+  async create(createUserInput: CreateUserInput) {
+    const user = await this.prismaService.user.create({
       data: createUserInput,
     })
+
+    await this.mailService.sendActivationAccount(
+      user.email,
+      user.username,
+      user.verificationToken
+    )
+
+    return this.exclude(user, ['passwordHash'])
   }
 
   async findAll() {
