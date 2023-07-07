@@ -24,9 +24,30 @@ model User {
   @@map("users")
 }
 
+model Upload {
+  id           Int     @id @default(autoincrement())
+  url          String
+  thumbnailUrl String     @map("thumbnail_url")
+  name         String
+  size         Int
+  type         UploadType
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  @@map("uploads")
+}
+
 enum Role {
   ADMINISTRATOR
   STAFF
 
   @@map("roles")
+}
+
+enum UploadType {
+  IMAGE
+  VIDEO
+  OTHER
+
+  @@map("upload_types")
 }

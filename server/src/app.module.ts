@@ -9,6 +9,8 @@ import { MailModule } from '@/mail/mail.module'
 import { PrismaModule } from '@/prisma/prisma.module'
 import { UsersModule } from '@/users/users.module'
 
+import { UploadsModule } from './uploads/uploads.module'
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,6 +25,7 @@ import { UsersModule } from '@/users/users.module'
     UsersModule,
     AuthModule,
     MailModule,
+    UploadsModule,
   ],
   controllers: [],
   providers: [],
