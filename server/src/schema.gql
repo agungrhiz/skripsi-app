@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateItemInput {
+  description: String!
+  fkPhotoId: Int!
+  name: String!
+}
+
 input CreateUserInput {
   email: String!
   role: String!
@@ -18,21 +24,43 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Item {
+  createdAt: Int!
+  description: String!
+  fkPhotoId: Int!
+  id: Int!
+  name: String!
+  updatedAt: DateTime!
+  upload: Upload!
+}
+
 type LoginResponseDto {
   accessToken: String!
   user: User!
 }
 
 type Mutation {
+  createItem(createItemInput: CreateItemInput!): Item!
   createUser(createUserInput: CreateUserInput!): User!
   login(credentials: CredentialsAuthInput!): LoginResponseDto!
+  removeItem(id: Int!): Item!
   removeUser(id: String!): User!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  item(id: Int!): Item!
+  items: [Item!]!
   user(id: String!): User!
   users: [User!]!
+}
+
+input UpdateItemInput {
+  description: String
+  fkPhotoId: Int
+  id: Int!
+  name: String
 }
 
 input UpdateUserInput {
@@ -40,6 +68,17 @@ input UpdateUserInput {
   id: String!
   role: String
   username: String
+}
+
+type Upload {
+  createdAt: DateTime!
+  id: Int!
+  name: String!
+  size: Int!
+  thumbnailUrl: String!
+  type: String!
+  updatedAt: DateTime!
+  url: String!
 }
 
 type User {

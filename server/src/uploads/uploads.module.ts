@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { APP_GUARD } from '@nestjs/core'
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
+import { ThrottlerModule } from '@nestjs/throttler'
 
 import { PrismaService } from '@/prisma/prisma.service'
 import { UploadsController } from '@/uploads/uploads.controller'
@@ -18,10 +17,6 @@ import { UploadsService } from '@/uploads/uploads.service'
     }),
   ],
   controllers: [UploadsController],
-  providers: [
-    UploadsService,
-    PrismaService,
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
-  ],
+  providers: [UploadsService, PrismaService],
 })
 export class UploadsModule {}
