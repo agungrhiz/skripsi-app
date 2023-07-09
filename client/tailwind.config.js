@@ -7,10 +7,34 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        cube: 'cube 12s ease-in forwards infinite',
+        gradient: 'animated-gradient 15s ease infinite',
+        'spin-slow': 'spin 5s linear infinite',
+      },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-linear': 'linear-gradient(132deg, #d3374c, #421492, #1b1d2d)',
+        kawung: 'url("/img/kawung.png")',
+      },
+      backgroundSize: {
+        '10px': '10px 10px',
+        '400%': '400% 400%',
+      },
+      keyframes: {
+        'animated-gradient': {
+          '0%, 100%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+        },
+        cube: {
+          from: {
+            transform: 'scale(0) rotate(0deg) translate(-50%, -50%)',
+            opacity: 1,
+          },
+          to: {
+            transform: 'scale(20) rotate(960deg) translate(-50%, -50%)',
+            opacity: 0,
+          },
+        },
       },
     },
   },
