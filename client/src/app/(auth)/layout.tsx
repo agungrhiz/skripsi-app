@@ -6,7 +6,7 @@ export const metadata = {
   title: 'Auth',
 }
 
-export default function AuthLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
