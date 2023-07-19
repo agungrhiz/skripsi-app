@@ -1,7 +1,10 @@
-export const metadata = {
+import { FormLogin } from "@/components/organisms/form-login";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Login",
 };
 
-export default function LoginPage() {
-  return <h1>Login</h1>;
+export default async function Page()  {
+  return <FormLogin />;
 }

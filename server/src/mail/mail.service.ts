@@ -29,4 +29,17 @@ export class MailService {
       },
     })
   }
+
+  async sendResetPassword(email: string, username: string, token: string) {
+    const url = `${this.frontendUrl}/reset-password/${token}`
+    await this.mailerService.sendMail({
+      to: email,
+      subject: 'Reset your password',
+      template: 'reset-password',
+      context: {
+        username,
+        url,
+      },
+    })
+  }
 }

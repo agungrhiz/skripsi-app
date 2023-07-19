@@ -5,6 +5,7 @@ import { AuthResolver } from '@/auth/auth.resolver'
 import { AuthService } from '@/auth/auth.service'
 import { JwtStrategy } from '@/auth/strategies/jwt.strategy'
 import { LocalStrategy } from '@/auth/strategies/local.strategy'
+import { MailService } from '@/mail/mail.service'
 import { PrismaService } from '@/prisma/prisma.service'
 import { RolesGuard } from '@/roles/roles.guard'
 
@@ -17,6 +18,7 @@ import { RolesGuard } from '@/roles/roles.guard'
     LocalStrategy,
     JwtStrategy,
     RolesGuard,
+    MailService,
   ],
 })
 export class AuthModule {}

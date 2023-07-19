@@ -42,9 +42,11 @@ type LoginResponseDto {
 type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
   createUser(createUserInput: CreateUserInput!): User!
+  forgotPassword(email: String!): User!
   login(credentials: CredentialsAuthInput!): LoginResponseDto!
   removeItem(id: Int!): Item!
   removeUser(id: String!): User!
+  resetPassword(resetPasswordInput: ResetPasswordInput!): User!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
@@ -52,8 +54,15 @@ type Mutation {
 type Query {
   item(id: Int!): Item!
   items: [Item!]!
+  me: User!
   user(id: String!): User!
   users: [User!]!
+}
+
+input ResetPasswordInput {
+  password: String!
+  passwordConfirmation: String!
+  token: String!
 }
 
 input UpdateItemInput {
