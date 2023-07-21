@@ -8,7 +8,7 @@ import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Observable } from 'rxjs'
 
-import { JwtPayload } from '@/auth/types/jwt-payload.type'
+import { JwtPayload } from '@/auth/entities/jwt-payload.entity'
 import { ROLES_KEY } from '@/roles/roles.decorator'
 import { Role } from '@/roles/roles.enum'
 

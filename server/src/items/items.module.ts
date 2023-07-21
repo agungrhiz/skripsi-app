@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common'
 
 import { ItemsResolver } from '@/items/items.resolver'
 import { ItemsService } from '@/items/items.service'
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaModule } from '@/prisma/prisma.module'
 
 @Module({
-  providers: [ItemsResolver, ItemsService, PrismaService],
+  imports: [PrismaModule],
+  providers: [ItemsResolver, ItemsService],
 })
 export class ItemsModule {}

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ThrottlerModule } from '@nestjs/throttler'
 
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaModule } from '@/prisma/prisma.module'
 import { UploadsController } from '@/uploads/uploads.controller'
 import { UploadsService } from '@/uploads/uploads.service'
 
@@ -15,8 +15,9 @@ import { UploadsService } from '@/uploads/uploads.service'
       }),
       inject: [ConfigService],
     }),
+    PrismaModule,
   ],
   controllers: [UploadsController],
-  providers: [UploadsService, PrismaService],
+  providers: [UploadsService],
 })
 export class UploadsModule {}

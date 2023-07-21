@@ -42,6 +42,24 @@ export class UsersService {
     return result
   }
 
+  async findByEmail(email: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: email,
+      },
+    })
+    return user
+  }
+
+  async findByVerificationToken(verificationToken: string) {
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        verificationToken,
+      },
+    })
+    return user
+  }
+
   update(id: string, updateUserInput: UpdateUserInput) {
     return this.prismaService.user.update({
       where: {

@@ -34,9 +34,18 @@ type Item {
   upload: Upload!
 }
 
+type JwtPayload {
+  email: String!
+  exp: Float!
+  iat: Float!
+  role: String!
+  sub: String!
+  username: String!
+}
+
 type LoginResponseDto {
   accessToken: String!
-  user: User!
+  payload: JwtPayload!
 }
 
 type Mutation {
@@ -54,7 +63,7 @@ type Mutation {
 type Query {
   item(id: Int!): Item!
   items: [Item!]!
-  me: User!
+  me: JwtPayload!
   user(id: String!): User!
   users: [User!]!
 }

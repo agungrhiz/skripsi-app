@@ -5,6 +5,7 @@ import { AuthService } from '@/auth/auth.service'
 import { CredentialsAuthInput } from '@/auth/dto/credentials-auth.input'
 import { LoginResponseDto } from '@/auth/dto/login-response.dto'
 import { ResetPasswordInput } from '@/auth/dto/reset-password.input'
+import { JwtPayload } from '@/auth/entities/jwt-payload.entity'
 import { GqlAuthGuard } from '@/auth/guards/gql-auth.guard'
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard'
 import { User } from '@/users/entities/user.entity'
@@ -19,10 +20,10 @@ export class AuthResolver {
     return this.authService.login(credentials)
   }
 
-  @Query(() => User, { name: 'me' })
+  @Query(() => JwtPayload, { name: 'me' })
   @UseGuards(JwtAuthGuard)
   currentUser(@Context('req') req: any) {
-    return this.authService.me(req.user)
+    return req.user
   }
 
   @Mutation(() => User)
