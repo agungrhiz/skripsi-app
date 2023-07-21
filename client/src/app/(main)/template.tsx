@@ -7,11 +7,7 @@ import {
   TicketIcon,
 } from "@heroicons/react/24/solid";
 
-export default function AnimationLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative grid min-h-screen grid-rows-[80px,1fr,80px]">
       <header className="grid items-center">

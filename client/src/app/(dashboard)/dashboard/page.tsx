@@ -1,6 +1,7 @@
 export default function DashboardPage() {
-    return (
-      <h1>Dashboard</h1>
-    );
-  }
-  
+  return (
+    <section>
+      <h2 className="text-base">Dashboard</h2>
+    </section>
+  );
+}

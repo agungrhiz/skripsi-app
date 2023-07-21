@@ -2,6 +2,7 @@
 
 import { gql, useMutation } from "@apollo/client";
 import { Alert, Button, Checkbox, Divider, Form, Input } from "antd";
+import { setCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,6 +27,14 @@ export const FormLogin = () => {
       mutation Login($input: CredentialsAuthInput!) {
         login(credentials: $input) {
           accessToken
+          payload {
+            sub
+            username
+            email
+            role
+            iat
+            exp
+          }
         }
       }
     `
@@ -49,7 +58,8 @@ export const FormLogin = () => {
         },
       });
 
-      sessionStorage.setItem("token", data.login.accessToken);
+      setCookie("access_token", data.login.accessToken);
+      setCookie("payload_token", data.login.payload);
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
@@ -85,7 +95,11 @@ export const FormLogin = () => {
           name="password"
           rules={[{ required: true, message: "Kata sandi harus diisi" }]}
         >
-          <Input.Password type="password" placeholder="Kata sandi" size="large" />
+          <Input.Password
+            type="password"
+            placeholder="Kata sandi"
+            size="large"
+          />
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>

@@ -1,9 +1,5 @@
 import "@/app/globals.css";
-import { Inter } from "next/font/google";
 import StyledJsxRegistry from "@/app/registry";
-import AnimationLayout from "@/components/organisms/animation-layout";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Skripsi App",
@@ -17,9 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="m-0">
         <StyledJsxRegistry>
-          <AnimationLayout>{children}</AnimationLayout>
+          {children}
         </StyledJsxRegistry>
       </body>
     </html>
