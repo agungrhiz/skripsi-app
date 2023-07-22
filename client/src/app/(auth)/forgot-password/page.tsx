@@ -1,4 +1,4 @@
-import { FormForgotPassword } from "@/components/organisms/form-forgot-password";
+import { FormForgotPassword } from "@/components/form-forgot-password";
 
 export const metadata = {
   title: "Lupa Kata Sandi",

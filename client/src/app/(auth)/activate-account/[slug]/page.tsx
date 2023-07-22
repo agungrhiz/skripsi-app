@@ -1,4 +1,4 @@
-import { FormResetPassword } from "@/components/organisms/form-reset-password";
+import { FormResetPassword } from "@/components/form-reset-password";
 
 export const metadata = {
   title: "Aktivasi Akun",

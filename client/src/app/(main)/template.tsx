@@ -1,5 +1,5 @@
-import { AnimationBackground } from "@/components/molecules/animation-background/animation-background";
-import { FabItem, FabMenu } from "@/components/molecules/fab-menu";
+import { AnimationBackground } from "@/components/shared/animation-background/animation-background";
+import { FabItem, FabMenu } from "@/components/shared/fab-menu";
 import {
   HomeIcon,
   PhotoIcon,

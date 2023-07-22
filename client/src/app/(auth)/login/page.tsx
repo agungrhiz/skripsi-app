@@ -1,4 +1,4 @@
-import { FormLogin } from "@/components/organisms/form-login";
+import { FormLogin } from "@/components/form-login";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
