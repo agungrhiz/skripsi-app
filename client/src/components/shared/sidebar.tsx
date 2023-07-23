@@ -30,14 +30,14 @@ function getItem(
 
 const defaultSelectedKeys = () => {
   const pathname = usePathname();
-  switch (pathname) {
-    case "/dashboard":
+  switch (true) {
+    case pathname === "/dashboard":
       return ["dashboard"];
-    case "/dashboard/item":
+    case pathname.startsWith("/dashboard/item"):
       return ["item"];
-    case "/dashboard/gallery":
+    case pathname.startsWith("/dashboard/gallery"):
       return ["gallery"];
-    case "/admin/user":
+    case pathname.startsWith("/admin/user"):
       return ["user"];
     default:
       return ["dashboard"];
