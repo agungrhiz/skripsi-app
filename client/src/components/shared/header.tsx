@@ -6,9 +6,24 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 import { Header as Heading } from "antd/es/layout/layout";
-import { deleteCookie, getCookie, removeCookies } from "cookies-next";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { deleteCookie } from "cookies-next";
+import { usePathname, useRouter } from "next/navigation";
+
+const defaultTitle = () => {
+  const pathname = usePathname();
+  switch (pathname) {
+    case "/dashboard":
+      return "Dashboard";
+    case "/dashboard/item":
+      return "Item";
+    case "/dashboard/gallery":
+      return "Gallery";
+    case "/admin/user":
+      return "User";
+    default:
+      return "Dashboard";
+  }
+};
 
 export default function Header({
   collapsed,
@@ -36,7 +51,7 @@ export default function Header({
               color: "white",
             }}
           />
-          <span className="text-xl font-semibold text-white">Dashboard</span>
+          <span className="text-xl font-semibold text-white">{defaultTitle()}</span>
         </div>
         <div className="flex items-center">
           <div className="space-x-1">
