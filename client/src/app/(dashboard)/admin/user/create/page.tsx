@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   title: "Form User",
 };
 
-export default function Page({ params }: { params: { id: string } }) {
-  return <FormUser id={params.id} />;
+export default function Page() {
+  return <FormUser />;
 }
