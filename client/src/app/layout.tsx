@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "./globals.css";
 import Providers from "@/app/provider";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 
