@@ -13,6 +13,9 @@ export class Item {
   @Field()
   description: string
 
+  @Field()
+  isPublished: boolean
+
   @Field(() => Int)
   fkPhotoId: number
 

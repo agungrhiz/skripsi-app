@@ -5,6 +5,7 @@
 input CreateItemInput {
   description: String!
   fkPhotoId: Int!
+  isPublished: Boolean!
   name: String!
 }
 
@@ -29,6 +30,7 @@ type Item {
   description: String!
   fkPhotoId: Int!
   id: Int!
+  isPublished: Boolean!
   name: String!
   updatedAt: DateTime!
   upload: Upload!
@@ -78,6 +80,7 @@ input UpdateItemInput {
   description: String
   fkPhotoId: Int
   id: Int!
+  isPublished: Boolean
   name: String
 }
 
