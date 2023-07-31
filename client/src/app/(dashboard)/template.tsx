@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SideBar from "@/components/shared/sidebar";
 import Header from "@/components/shared/header";
 import { getCookie } from "cookies-next";
-import { Payload } from "@/lib/payload";
+import { Payload } from "@/lib/types/payload";
 
 const { Content } = Layout;
 

@@ -1,8 +1,15 @@
 "use client";
 
-import { Uploads } from "@/lib/uploads";
+import api from "@/lib/api/axios";
+import {
+  mutationCreateItem,
+  mutationUpdateItem,
+  queryItem,
+} from "@/lib/graphql/items";
+import { Uploads } from "@/lib/interfaces/uploads";
+import { NotificationType } from "@/lib/types/notification";
 import { PlusOutlined } from "@ant-design/icons";
-import { TypedDocumentNode, gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import {
   Button,
@@ -21,68 +28,6 @@ import { RcFile } from "antd/es/upload";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  isPublished: boolean;
-  fkPhotoId: number;
-  upload: Uploads;
-}
-
-const query: TypedDocumentNode<{
-  item: Item;
-}> = gql`
-  query Item($id: Int!) {
-    item(id: $id) {
-      id
-      name
-      description
-      isPublished
-      fkPhotoId
-      upload {
-        id
-        url
-        thumbnailUrl
-        name
-        size
-        type
-      }
-    }
-  }
-`;
-
-const mutationCreate: TypedDocumentNode<{
-  createItem: Item;
-}> = gql`
-  mutation CreateItem($input: CreateItemInput!) {
-    createItem(createItemInput: $input) {
-      id
-      name
-      description
-      isPublished
-      fkPhotoId
-    }
-  }
-`;
-
-const mutationUpdate: TypedDocumentNode<{
-  updateItem: Item;
-}> = gql`
-  mutation UpdateItem($input: UpdateItemInput!) {
-    updateItem(updateItemInput: $input) {
-      id
-      name
-      description
-      isPublished
-      fkPhotoId
-    }
-  }
-`;
-
-type NotificationType = "success" | "error";
-const UPLOAD_URL = process.env.NEXT_PUBLIC_UPLOAD_URL;
-
 const getBase64 = (file: RcFile): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -94,15 +39,15 @@ const getBase64 = (file: RcFile): Promise<string> =>
 export const FormItem = ({ id }: { id?: string }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { data } = useQuery(query, {
+  const { data } = useQuery(queryItem, {
     variables: {
       id: Number(id),
     },
     skip: !id,
   });
-  const [createItem] = useMutation(mutationCreate);
-  const [updateItem] = useMutation(mutationUpdate);
-  const [api, contextHolder] = notification.useNotification();
+  const [createItem] = useMutation(mutationCreateItem);
+  const [updateItem] = useMutation(mutationUpdateItem);
+  const [context, contextHolder] = notification.useNotification();
   const router = useRouter();
 
   // upload
@@ -137,75 +82,87 @@ export const FormItem = ({ id }: { id?: string }) => {
 
   useEffect(() => {
     if (id && data?.item) {
-      form.setFieldsValue({
-        name: data.item.name,
-        description: data.item.description,
-        isPublished: data.item.isPublished,
-      });
+      setFileList([
+        {
+          uid: data.item.upload.id.toString(),
+          name: data.item.upload.name,
+          status: "done",
+          url:
+            process.env.NEXT_PUBLIC_API_URL +
+            "/uploads?url=" +
+            data.item.upload.url,
+        },
+      ]);
     } else {
-      form.setFieldsValue({
-        isPublished: false,
-      });
+      setFileList([]);
     }
-  }, [id, data, form]);
+  }, [id, data]);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      upload: fileList.length > 0 ? fileList[0] : null,
+      name: data?.item.name,
+      description: data?.item.description,
+      isPublished: data?.item.isPublished || false,
+    });
+  }, [fileList, data, form]);
 
   const handleSubmit = async (values: any) => {
     try {
       setLoading(true);
-      const upload = await handleUpload();
-      if (!upload) {
-        sendNotification(
-          "error",
-          "Gagal",
-          "Gagal mengunggah foto, silahkan coba lagi"
-        );
-        setLoading(false);
-        return;
-      }
       const input = {
         name: values.name,
         description: values.description,
-        isPublished: values.isPublished,
-        fkPhotoId: 12,
+        isPublished: values.isPublished || false,
       };
-      console.log(input);
       if (id) {
-        await updateItem({
+        if (values.upload.uid === data?.item.upload.id.toString()) {
+          await updateItem({
+            variables: {
+              input: {
+                ...input,
+                id: Number(id),
+              },
+            },
+          });
+        } else {
+          const response = await uploadFile(values.upload.file as RcFile);
+          await updateItem({
+            variables: {
+              input: {
+                ...input,
+                id: Number(id),
+                fkPhotoId: response.id,
+              },
+            },
+          });
+          window.location.reload();
+        }
+      } else {
+        const response = await uploadFile(values.upload.file as RcFile);
+        await createItem({
           variables: {
             input: {
               ...input,
-              id: Number(id),
+              fkPhotoId: response.id,
             },
-          },
-        });
-      } else {
-        await createItem({
-          variables: {
-            input,
           },
         });
       }
       sendNotification("success", "Berhasil", "Berhasil menyimpan data");
-    } catch(error) {
+    } catch (error) {
+      console.log(error);
       sendNotification("error", "Gagal", "Gagal menyimpan data");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  const handleUpload = async (): Promise<Uploads | null> => {
-    const formData = new FormData();
-    formData.append("file", fileList[0].originFileObj as RcFile);
-    try {
-      const response = await fetch(UPLOAD_URL || "", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return null;
-    }
+  const uploadFile = async (file: RcFile): Promise<Uploads> => {
+    const form = new FormData();
+    form.append("file", file);
+    const response = await api.post("/uploads", form);
+    return response.data;
   };
 
   const sendNotification = (
@@ -213,7 +170,7 @@ export const FormItem = ({ id }: { id?: string }) => {
     title: string,
     description: string
   ) => {
-    api[type]({
+    context[type]({
       message: title,
       description,
     });
@@ -239,7 +196,6 @@ export const FormItem = ({ id }: { id?: string }) => {
             rules={[{ required: true, message: "Foto harus diisi" }]}
           >
             <Upload
-              action={UPLOAD_URL}
               listType="picture-card"
               fileList={fileList}
               onPreview={handlePreview}

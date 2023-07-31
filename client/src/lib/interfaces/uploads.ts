@@ -1,3 +1,5 @@
+import { UploadType } from "@/lib/enums/upload-type";
+
 export interface Uploads {
   id: number;
   url: string;
@@ -9,8 +11,3 @@ export interface Uploads {
   updatedAt: Date;
 }
 
-export enum UploadType {
-  IMAGE = "IMAGE",
-  VIDEO = "VIDEO",
-  OTHER = "OTHER",
-}

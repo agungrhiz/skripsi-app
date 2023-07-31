@@ -1,6 +1,6 @@
 import "./globals.css";
 import Providers from "@/app/provider";
-import { ApolloWrapper } from "@/lib/apollo-wrapper";
+import { ApolloWrapper } from "@/lib/graphql/apollo-wrapper";
 
 export const metadata = {
   title: "Skripsi App",

@@ -1,13 +1,15 @@
 "use client";
 
-import { Role } from "@/lib/role";
+import { Role } from "@/lib/enums/role";
+import { mutationRemoveUser, queryUsers } from "@/lib/graphql/users";
+import { Users } from "@/lib/interfaces/users";
 import {
   DeleteOutlined,
   EditOutlined,
   PlusOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { TypedDocumentNode, gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import {
   Button,
@@ -26,48 +28,10 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 
-interface DataType {
-  id: string;
-  username: string;
-  email: string;
-  emailVerified: boolean;
-  role: string;
-}
-
-type DataIndex = keyof DataType;
-
-const query: TypedDocumentNode<{
-  users: DataType[];
-}> = gql`
-  query Users {
-    users {
-      id
-      username
-      email
-      emailVerified
-      role
-    }
-  }
-`;
-
-const mutation: TypedDocumentNode<{
-  removeUser: DataType;
-}> = gql`
-  mutation RemoveUser($id: String!) {
-    removeUser(id: $id) {
-      id
-      username
-      email
-      emailVerified
-      role
-    }
-  }
-`;
-
 export const ListUser = () => {
-  const [users, setUsers] = useState<DataType[]>([]);
-  const { data } = useQuery(query);
-  const [removeUser] = useMutation(mutation);
+  const [users, setUsers] = useState<Users[]>([]);
+  const { data } = useQuery(queryUsers);
+  const [removeUser] = useMutation(mutationRemoveUser);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
@@ -100,7 +64,7 @@ export const ListUser = () => {
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: DataIndex
+    dataIndex: keyof Users
   ) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -113,8 +77,8 @@ export const ListUser = () => {
   };
 
   const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): ColumnType<DataType> => ({
+    dataIndex: keyof Users
+  ): ColumnType<Users> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -192,7 +156,7 @@ export const ListUser = () => {
       ),
   });
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<Users> = [
     {
       title: "No",
       dataIndex: "id",

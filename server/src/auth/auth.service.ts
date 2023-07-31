@@ -55,7 +55,7 @@ export class AuthService {
         role: user.role,
       },
       {
-        expiresIn: '1h',
+        expiresIn: '24h',
         secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
       }
     )

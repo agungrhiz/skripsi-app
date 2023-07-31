@@ -1,71 +1,24 @@
 "use client";
 
-import { Role } from "@/lib/role";
-import { TypedDocumentNode, gql, useMutation, useQuery } from "@apollo/client";
+import { Role } from "@/lib/enums/role";
+import { mutationCreateUser, mutationUpdateUsers, queryUser } from "@/lib/graphql/users";
+import { NotificationType } from "@/lib/types/notification";
+import { useMutation, useQuery } from "@apollo/client";
 import { Button, Divider, Form, Input, Radio, Space, notification } from "antd";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-interface User {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-}
-
-const query: TypedDocumentNode<{
-  user: User;
-}> = gql`
-  query User($id: String!) {
-    user(id: $id) {
-      id
-      username
-      email
-      role
-    }
-  }
-`;
-
-const mutationCreate: TypedDocumentNode<{
-  createUser: User;
-}> = gql`
-  mutation CreateUser($input: CreateUserInput!) {
-    createUser(createUserInput: $input) {
-      id
-      username
-      email
-      role
-    }
-  }
-`;
-
-const mutationUpdate: TypedDocumentNode<{
-  updateUser: User;
-}> = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(updateUserInput: $input) {
-      id
-      username
-      email
-      role
-    }
-  }
-`;
-
-type NotificationType = "success" | "error";
 
 export const FormUser = ({ id }: { id?: string }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { data } = useQuery(query, {
+  const { data } = useQuery(queryUser, {
     variables: {
       id,
     },
     skip: !id,
   });
-  const [createUser] = useMutation(mutationCreate);
-  const [updateUser] = useMutation(mutationUpdate);
+  const [createUser] = useMutation(mutationCreateUser);
+  const [updateUser] = useMutation(mutationUpdateUsers);
   const [api, contextHolder] = notification.useNotification();
   const router = useRouter();
 

@@ -1,4 +1,4 @@
-import { Role } from "@/lib/role";
+import { Role } from "@/lib/enums/role";
 
 export type Payload = {
     sub: string;

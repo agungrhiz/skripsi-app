@@ -1,4 +1,4 @@
-import { Role } from "@/lib/role";
+import { Role } from "@/lib/enums/role";
 import {
   AppstoreAddOutlined,
   PictureOutlined,

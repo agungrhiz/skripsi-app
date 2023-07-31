@@ -1,6 +1,11 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { ReadStream } from 'fs'
 import { dirname, join, parse } from 'path'
 import * as sharp from 'sharp'
 import { v4 as uuidv4 } from 'uuid'
@@ -83,5 +88,20 @@ export class UploadsService {
     await this.sendToS3(thumbnailBuffer, thumbnailUrl)
 
     return thumbnailUrl
+  }
+
+  public async readStream(url: string): Promise<ReadStream> {
+    try {
+      const { Body } = await this.s3Client.send(
+        new GetObjectCommand({
+          Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
+          Key: url,
+        })
+      )
+
+      return Body as unknown as ReadStream
+    } catch (error) {
+      throw new Error(`Failed to read stream from S3: ${error.message}`)
+    }
   }
 }
