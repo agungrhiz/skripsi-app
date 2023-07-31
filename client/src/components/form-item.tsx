@@ -237,7 +237,7 @@ export const FormItem = ({ id }: { id?: string }) => {
               <Button
                 type="default"
                 htmlType="button"
-                onClick={() => router.push("/admin/user")}
+                onClick={() => router.push("/dashboard/item")}
               >
                 Kembali
               </Button>
