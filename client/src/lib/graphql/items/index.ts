@@ -15,6 +15,28 @@ export const mutationCreateItem: TypedDocumentNode<{
   }
 `;
 
+export const queryItems: TypedDocumentNode<{
+  items: Item[];
+}> = gql`
+  query Items {
+    items {
+      id
+      name
+      description
+      isPublished
+      fkPhotoId
+      upload {
+        id
+        url
+        thumbnailUrl
+        name
+        size
+        type
+      }
+    }
+  }
+`;
+
 export const queryItem: TypedDocumentNode<{
   item: Item;
 }> = gql`
@@ -42,6 +64,20 @@ export const mutationUpdateItem: TypedDocumentNode<{
 }> = gql`
   mutation UpdateItem($input: UpdateItemInput!) {
     updateItem(updateItemInput: $input) {
+      id
+      name
+      description
+      isPublished
+      fkPhotoId
+    }
+  }
+`;
+
+export const mutationRemoveItem: TypedDocumentNode<{
+  removeItem: Item;
+}> = gql`
+  mutation RemoveItem($id: Int!) {
+    removeItem(id: $id) {
       id
       name
       description

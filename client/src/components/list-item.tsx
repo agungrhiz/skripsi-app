@@ -1,8 +1,7 @@
 "use client";
 
-import { Role } from "@/lib/enums/role";
-import { mutationRemoveUser, queryUsers } from "@/lib/graphql/users";
-import { Users } from "@/lib/interfaces/users";
+import { mutationRemoveItem, queryItems } from "@/lib/graphql/items";
+import { Item } from "@/lib/interfaces/items";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -28,10 +27,10 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 
-export const ListUser = () => {
-  const [users, setUsers] = useState<Users[]>([]);
-  const { data } = useQuery(queryUsers);
-  const [removeUser] = useMutation(mutationRemoveUser);
+export const ListItem = () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const { data } = useQuery(queryItems);
+  const [removeItem] = useMutation(mutationRemoveItem);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
@@ -39,7 +38,7 @@ export const ListUser = () => {
 
   useEffect(() => {
     if (data) {
-      setUsers(data.users);
+      setItems(data.items);
     }
   }, [data]);
 
@@ -47,14 +46,14 @@ export const ListUser = () => {
     setOpen(true);
   };
 
-  const handleRemove = async (id: string) => {
-    const { data } = await removeUser({
+  const handleRemove = async (id: number) => {
+    await removeItem({
       variables: {
         id,
       },
     });
     setOpen(false);
-    setUsers((prev) => prev.filter((user) => user.id !== data?.removeUser.id));
+    setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleCancelRemove = () => {
@@ -64,7 +63,7 @@ export const ListUser = () => {
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: keyof Users
+    dataIndex: keyof Item
   ) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -76,9 +75,7 @@ export const ListUser = () => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (
-    dataIndex: keyof Users
-  ): ColumnType<Users> => ({
+  const getColumnSearchProps = (dataIndex: keyof Item): ColumnType<Item> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -156,65 +153,57 @@ export const ListUser = () => {
       ),
   });
 
-  const columns: ColumnsType<Users> = [
+  const image = (url: string) => (
+    <img src={url} alt="Foto" style={{ width: 100 }} />
+  );
+
+  const columns: ColumnsType<Item> = [
     {
-      title: "Username",
-      dataIndex: "username",
-      key: "username",
-      ...getColumnSearchProps("username"),
-      sorter: (a, b) => a.username.localeCompare(b.username),
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      ...getColumnSearchProps("email"),
-      sorter: (a, b) => a.email.localeCompare(b.email),
-    },
-    {
-      title: "Email Verified",
-      dataIndex: "emailVerified",
-      key: "emailVerified",
+      title: "Foto",
+      dataIndex: "upload",
+      key: "upload",
       render: (_, record) => {
-        const { emailVerified } = record;
-        const color = emailVerified ? "green" : "red";
-        const text = emailVerified ? "Terverifikasi" : "Belum Terverifikasi";
+        const { upload } = record;
+        return (
+          <img
+            src={process.env.NEXT_PUBLIC_API_URL + "/uploads?url=" + upload?.thumbnailUrl}
+            alt="Foto"
+            width={50}
+            height={50}
+          />
+        );
+      },
+      width: 50,
+    },
+    {
+      title: "Nama",
+      dataIndex: "name",
+      key: "name",
+      ...getColumnSearchProps("name"),
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: "Status",
+      dataIndex: "isPublished",
+      key: "isPublished",
+      render: (_, record) => {
+        const { isPublished } = record;
+        const color = isPublished ? "green" : "red";
+        const text = isPublished ? "Dipublikasikan" : "Draft";
         return <Tag color={color}>{text}</Tag>;
       },
       filters: [
         {
-          text: "Terverifikasi",
+          text: "Dipublikasikan",
           value: true,
         },
         {
-          text: "Belum Terverifikasi",
+          text: "Draft",
           value: false,
         },
       ],
-      onFilter: (value, record) => record.emailVerified === value,
-      sorter: (a, b) => Number(a.emailVerified) - Number(b.emailVerified),
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
-      render: (_, record) => {
-        const { role } = record;
-        const color = role === Role.ADMINISTRATOR ? "orange" : "blue";
-        return <Tag color={color}>{role}</Tag>;
-      },
-      filters: [
-        {
-          text: "Administrator",
-          value: Role.ADMINISTRATOR,
-        },
-        {
-          text: "Staff",
-          value: Role.STAFF,
-        },
-      ],
-      onFilter: (value, record) => record.role === value,
-      sorter: (a, b) => a.role.length - b.role.length,
+      onFilter: (value, record) => record.isPublished === value,
+      sorter: (a, b) => Number(a.isPublished) - Number(b.isPublished),
     },
     {
       title: "Aksi",
@@ -222,19 +211,19 @@ export const ListUser = () => {
       render: (_, record) => (
         <div className="flex space-x-2">
           <Tooltip placement="top" title="Ubah">
-            <Link href={`/admin/user/${record.id}`}>
+            <Link href={`/dashboard/item/${record.id}`}>
               <Button icon={<EditOutlined />} />
             </Link>
           </Tooltip>
           <Tooltip placement="top" title="Hapus">
             <Button danger icon={<DeleteOutlined />} onClick={showModal} />
             <Modal
-              title="Hapus User"
+              title="Hapus Item"
               open={open}
               onOk={() => handleRemove(record.id)}
               onCancel={handleCancelRemove}
             >
-              <p>Apakah anda yakin ingin menghapus user ini?</p>
+              <p>Apakah anda yakin ingin menghapus item ini?</p>
             </Modal>
           </Tooltip>
         </div>
@@ -246,9 +235,9 @@ export const ListUser = () => {
   return (
     <section className="grid bg-white p-4 rounded-xl shadow space-y-2">
       <div className="flex justify-between items-center">
-        <h2 className="font-semibold leading-3">Daftar User</h2>
+        <h2 className="font-semibold leading-3">Daftar Item</h2>
         <div className="flex space-x-2">
-          <Link href="/admin/user/create">
+          <Link href="/dashboard/item/create">
             <Button icon={<PlusOutlined />} size="large" type="primary">
               Tambah
             </Button>
@@ -259,7 +248,7 @@ export const ListUser = () => {
       <div className="flex">
         <Table
           columns={columns}
-          dataSource={users}
+          dataSource={items}
           pagination={{ pageSize: 5 }}
           rowKey={(record) => record.id}
           style={{
