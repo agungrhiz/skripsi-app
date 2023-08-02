@@ -89,6 +89,7 @@ type Query {
   gallery(id: Int!): Gallery!
   item(id: Int!): Item!
   items: [Item!]!
+  itemsPublished: [Item!]!
   me: JwtPayload!
   user(id: String!): User!
   users: [User!]!

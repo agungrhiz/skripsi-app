@@ -19,6 +19,13 @@ export class ItemsService {
     return this.prismaService.item.findMany({ include: { upload: true } })
   }
 
+  findPublished() {
+    return this.prismaService.item.findMany({
+      where: { isPublished: true },
+      include: { upload: true },
+    })
+  }
+
   findOne(id: number) {
     return this.prismaService.item.findUnique({
       where: { id },

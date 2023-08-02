@@ -7,22 +7,22 @@ export class Item {
   @Field(() => Int)
   id: number
 
-  @Field()
+  @Field(() => String)
   name: string
 
-  @Field()
+  @Field(() => String)
   description: string
 
-  @Field()
+  @Field(() => Boolean)
   isPublished: boolean
 
   @Field(() => Int)
   fkPhotoId: number
 
-  @Field(() => Int)
+  @Field(() => Date)
   createdAt: Date
 
-  @Field()
+  @Field(() => Date)
   updatedAt: Date
 
   @Field(() => Upload)
