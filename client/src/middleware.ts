@@ -9,12 +9,14 @@ export async function middleware(request: NextRequest) {
   );
 
   switch (true) {
+    case pathname === "/dashboard":
+      return NextResponse.redirect(`${origin}/dashboard/item`);
     case pathname === "/admin":
       return NextResponse.redirect(`${origin}/admin/user`);
     case pathname.startsWith("/dashboard") && !accessToken:
       return NextResponse.redirect(`${origin}/login`);
     case pathname.startsWith("/admin") && payloadToken.role !== "ADMINISTRATOR":
-      return NextResponse.redirect(`${origin}/dashboard`);
+      return NextResponse.redirect(`${origin}/dashboard/item`);
     default:
       return NextResponse.next();
   }

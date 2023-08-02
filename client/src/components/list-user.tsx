@@ -170,6 +170,7 @@ export const ListUser = () => {
       key: "email",
       ...getColumnSearchProps("email"),
       sorter: (a, b) => a.email.localeCompare(b.email),
+      responsive: ["sm"]
     },
     {
       title: "Email Verified",
@@ -193,6 +194,7 @@ export const ListUser = () => {
       ],
       onFilter: (value, record) => record.emailVerified === value,
       sorter: (a, b) => Number(a.emailVerified) - Number(b.emailVerified),
+      responsive: ["md"],
     },
     {
       title: "Role",
@@ -215,6 +217,7 @@ export const ListUser = () => {
       ],
       onFilter: (value, record) => record.role === value,
       sorter: (a, b) => a.role.length - b.role.length,
+      responsive: ["md"],
     },
     {
       title: "Aksi",

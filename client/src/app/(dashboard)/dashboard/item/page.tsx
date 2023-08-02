@@ -7,6 +7,6 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function ItemPage() {
+export default function Page() {
   return <ListItem />;
 }

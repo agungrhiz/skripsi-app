@@ -31,8 +31,6 @@ function getItem(
 const defaultSelectedKeys = () => {
   const pathname = usePathname();
   switch (true) {
-    case pathname === "/dashboard":
-      return ["dashboard"];
     case pathname.startsWith("/dashboard/item"):
       return ["item"];
     case pathname.startsWith("/dashboard/gallery"):
@@ -52,11 +50,6 @@ export default function SideBar({
   role?: Role;
 }) {
   const items: MenuItem[] = [
-    getItem(
-      "dashboard",
-      <Link href="/dashboard">Dashboard</Link>,
-      <PieChartOutlined />
-    ),
     getItem(
       "item",
       <Link href="/dashboard/item">Item</Link>,

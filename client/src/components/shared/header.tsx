@@ -12,11 +12,9 @@ import { usePathname, useRouter } from "next/navigation";
 const defaultTitle = () => {
   const pathname = usePathname();
   switch (true) {
-    case pathname === "/dashboard":
-      return "Dashboard";
     case pathname.startsWith("/dashboard/item"):
       return "Item";
-    case pathname.startsWith("/dashboard/transaction"):
+    case pathname.startsWith("/dashboard/gallery"):
       return "Gallery";
     case pathname.startsWith("/admin/user"):
       return "User";

@@ -175,6 +175,7 @@ export const ListItem = () => {
         );
       },
       width: 50,
+      responsive: ["md"],
     },
     {
       title: "Nama",
@@ -205,6 +206,7 @@ export const ListItem = () => {
       ],
       onFilter: (value, record) => record.isPublished === value,
       sorter: (a, b) => Number(a.isPublished) - Number(b.isPublished),
+      responsive: ["sm"],
     },
     {
       title: "Aksi",

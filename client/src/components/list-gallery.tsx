@@ -176,6 +176,7 @@ export const ListGallery = () => {
       dataIndex: "description",
       key: "description",
       render: (text) => text || "-",
+      responsive: ["md"],
     },
     {
       title: "Status",
@@ -199,6 +200,7 @@ export const ListGallery = () => {
       ],
       onFilter: (value, record) => record.isPublished === value,
       sorter: (a, b) => Number(a.isPublished) - Number(b.isPublished),
+      responsive: ["sm"],
     },
     {
       title: "Aksi",
