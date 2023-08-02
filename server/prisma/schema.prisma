@@ -34,7 +34,8 @@ model Upload {
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @updatedAt @map("updated_at")
   removedAt    DateTime?  @map("removed_at")
-  Item         Item[]
+  item         Item[]
+  gallery      Gallery[]
 
   @@map("uploads")
 }
@@ -50,6 +51,19 @@ model Item {
   upload      Upload   @relation(fields: [fkPhotoId], references: [id])
 
   @@map("items")
+}
+
+model Gallery {
+  id          Int      @id @default(autoincrement())
+  title       String?
+  description String?
+  isPublished Boolean  @default(false) @map("is_published")
+  fkUploadId  Int      @map("fk_upload_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  upload      Upload   @relation(fields: [fkUploadId], references: [id])
+
+  @@map("galleries")
 }
 
 enum Role {

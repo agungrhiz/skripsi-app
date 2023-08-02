@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'path'
 
 import { AuthModule } from '@/auth/auth.module'
+import { GalleriesModule } from '@/galleries/galleries.module'
 import { ItemsModule } from '@/items/items.module'
 import { MailModule } from '@/mail/mail.module'
 import { PrismaModule } from '@/prisma/prisma.module'
@@ -27,6 +28,7 @@ import { UsersModule } from '@/users/users.module'
     MailModule,
     UploadsModule,
     ItemsModule,
+    GalleriesModule,
   ],
   controllers: [],
   providers: [],

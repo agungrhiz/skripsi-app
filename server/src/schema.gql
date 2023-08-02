@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateGalleryInput {
+  description: String
+  fkUploadId: Int!
+  isPublished: Boolean!
+  title: String
+}
+
 input CreateItemInput {
   description: String!
   fkPhotoId: Int!
@@ -25,8 +32,19 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Gallery {
+  createdAt: DateTime!
+  description: String
+  fkUploadId: Int!
+  id: Int!
+  isPublished: Boolean!
+  title: String
+  updatedAt: DateTime!
+  upload: Upload!
+}
+
 type Item {
-  createdAt: Int!
+  createdAt: DateTime!
   description: String!
   fkPhotoId: Int!
   id: Int!
@@ -51,18 +69,24 @@ type LoginResponseDto {
 }
 
 type Mutation {
+  createGallery(createGalleryInput: CreateGalleryInput!): Gallery!
   createItem(createItemInput: CreateItemInput!): Item!
   createUser(createUserInput: CreateUserInput!): User!
   forgotPassword(email: String!): User!
   login(credentials: CredentialsAuthInput!): LoginResponseDto!
+  removeGallery(id: Int!): Gallery!
   removeItem(id: Int!): Item!
   removeUser(id: String!): User!
   resetPassword(resetPasswordInput: ResetPasswordInput!): User!
+  updateGallery(updateGalleryInput: UpdateGalleryInput!): Gallery!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  galleries: [Gallery!]!
+  galleriesPublished: [Gallery!]!
+  gallery(id: Int!): Gallery!
   item(id: Int!): Item!
   items: [Item!]!
   me: JwtPayload!
@@ -74,6 +98,14 @@ input ResetPasswordInput {
   password: String!
   passwordConfirmation: String!
   token: String!
+}
+
+input UpdateGalleryInput {
+  description: String
+  fkUploadId: Int
+  id: Int!
+  isPublished: Boolean
+  title: String
 }
 
 input UpdateItemInput {
