@@ -104,4 +104,11 @@ export class UploadsService {
       throw new Error(`Failed to read stream from S3: ${error.message}`)
     }
   }
+
+  public async remove(id: number) {
+    return this.prismaService.upload.update({
+      where: { id },
+      data: { removedAt: new Date() },
+    })
+  }
 }

@@ -1,6 +1,8 @@
 import {
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Query,
   Res,
@@ -28,5 +30,11 @@ export class UploadsController {
   async readStream(@Query('url') url: string, @Res() res: any): Promise<void> {
     const readStream = await this.uploadsService.readStream(url)
     readStream.pipe(res)
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  async remove(@Param('id') id: string) {
+    return this.uploadsService.remove(+id)
   }
 }
