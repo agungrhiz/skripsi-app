@@ -126,6 +126,7 @@ export const FormItem = ({ id }: { id?: string }) => {
             },
           });
         } else {
+          api.delete("/uploads/" + data?.item.upload.id);
           const response = await uploadFile(values.upload.file as RcFile);
           await updateItem({
             variables: {

@@ -1,5 +1,6 @@
 "use client";
 
+import api from "@/lib/api/axios";
 import { mutationRemoveItem, queryItems } from "@/lib/graphql/items";
 import { Item } from "@/lib/interfaces/items";
 import {
@@ -47,12 +48,12 @@ export const ListItem = () => {
   };
 
   const handleRemove = async (id: number) => {
-    await removeItem({
+    const { data } = await removeItem({
       variables: {
         id,
       },
     });
-    setOpen(false);
+    api.delete(`/uploads/${data?.removeItem.fkPhotoId}`);
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -166,7 +167,11 @@ export const ListItem = () => {
         const { upload } = record;
         return (
           <img
-            src={process.env.NEXT_PUBLIC_API_URL + "/uploads?url=" + upload?.thumbnailUrl}
+            src={
+              process.env.NEXT_PUBLIC_API_URL +
+              "/uploads?url=" +
+              upload?.thumbnailUrl
+            }
             alt="Foto"
             width={50}
             height={50}
