@@ -1,4 +1,4 @@
-import { Uploads } from "@/lib/interfaces/uploads";
+import { Uploads } from "@/lib/interfaces/upload";
 
 export interface Item {
   id: number;

@@ -6,7 +6,7 @@ import {
   mutationUpdateItem,
   queryItem,
 } from "@/lib/graphql/items";
-import { Uploads } from "@/lib/interfaces/uploads";
+import { Uploads } from "@/lib/interfaces/upload";
 import { NotificationType } from "@/lib/types/notification";
 import { PlusOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";

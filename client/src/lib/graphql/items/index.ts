@@ -1,4 +1,4 @@
-import { Item } from "@/lib/interfaces/items";
+import { Item } from "@/lib/interfaces/item";
 import { TypedDocumentNode, gql } from "@apollo/client";
 
 export const mutationCreateItem: TypedDocumentNode<{

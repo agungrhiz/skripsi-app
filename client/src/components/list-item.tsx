@@ -2,7 +2,7 @@
 
 import api from "@/lib/api/axios";
 import { mutationRemoveItem, queryItems } from "@/lib/graphql/items";
-import { Item } from "@/lib/interfaces/items";
+import { Item } from "@/lib/interfaces/item";
 import {
   DeleteOutlined,
   EditOutlined,

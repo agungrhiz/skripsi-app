@@ -2,7 +2,7 @@
 
 import { Role } from "@/lib/enums/role";
 import { mutationRemoveUser, queryUsers } from "@/lib/graphql/users";
-import { Users } from "@/lib/interfaces/users";
+import { User } from "@/lib/interfaces/user";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -29,7 +29,7 @@ import { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 
 export const ListUser = () => {
-  const [users, setUsers] = useState<Users[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const { data } = useQuery(queryUsers);
   const [removeUser] = useMutation(mutationRemoveUser);
   const [searchText, setSearchText] = useState("");
@@ -64,7 +64,7 @@ export const ListUser = () => {
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: keyof Users
+    dataIndex: keyof User
   ) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -77,8 +77,8 @@ export const ListUser = () => {
   };
 
   const getColumnSearchProps = (
-    dataIndex: keyof Users
-  ): ColumnType<Users> => ({
+    dataIndex: keyof User
+  ): ColumnType<User> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -156,7 +156,7 @@ export const ListUser = () => {
       ),
   });
 
-  const columns: ColumnsType<Users> = [
+  const columns: ColumnsType<User> = [
     {
       title: "Username",
       dataIndex: "username",

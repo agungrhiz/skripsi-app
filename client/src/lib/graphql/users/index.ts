@@ -1,8 +1,8 @@
-import { Users } from "@/lib/interfaces/users";
+import { User } from "@/lib/interfaces/user";
 import { TypedDocumentNode, gql } from "@apollo/client";
 
 export const mutationCreateUser: TypedDocumentNode<{
-  createUser: Users;
+  createUser: User;
 }> = gql`
   mutation CreateUser($input: CreateUserInput!) {
     createUser(createUserInput: $input) {
@@ -15,7 +15,7 @@ export const mutationCreateUser: TypedDocumentNode<{
 `;
 
 export const queryUsers: TypedDocumentNode<{
-  users: Users[];
+  users: User[];
 }> = gql`
   query Users {
     users {
@@ -29,7 +29,7 @@ export const queryUsers: TypedDocumentNode<{
 `;
 
 export const queryUser: TypedDocumentNode<{
-  user: Users;
+  user: User;
 }> = gql`
   query User($id: String!) {
     user(id: $id) {
@@ -42,7 +42,7 @@ export const queryUser: TypedDocumentNode<{
 `;
 
 export const mutationUpdateUsers: TypedDocumentNode<{
-  updateUser: Users;
+  updateUser: User;
 }> = gql`
   mutation UpdateUser($input: UpdateUserInput!) {
     updateUser(updateUserInput: $input) {
@@ -55,7 +55,7 @@ export const mutationUpdateUsers: TypedDocumentNode<{
 `;
 
 export const mutationRemoveUser: TypedDocumentNode<{
-  removeUser: Users;
+  removeUser: User;
 }> = gql`
   mutation RemoveUser($id: String!) {
     removeUser(id: $id) {
