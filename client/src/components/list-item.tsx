@@ -154,10 +154,6 @@ export const ListItem = () => {
       ),
   });
 
-  const image = (url: string) => (
-    <img src={url} alt="Foto" style={{ width: 100 }} />
-  );
-
   const columns: ColumnsType<Item> = [
     {
       title: "Foto",
