@@ -1,6 +1,7 @@
 "use client";
 
-import { gql, useMutation } from "@apollo/client";
+import { mutationResetPassword } from "@/lib/graphql/auth";
+import { useMutation } from "@apollo/client";
 import { Button, Divider, Form, Input, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,16 +15,7 @@ export const FormResetPassword = ({ title, token }: FormResetPasswordProps) => {
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
 
-  const [resetPassword, { loading }] = useMutation(
-    gql`
-      mutation ResetPassword($input: ResetPasswordInput!) {
-        resetPassword(resetPasswordInput: $input) {
-          email
-          passwordHash
-        }
-      }
-    `
-  );
+  const [resetPassword, { loading }] = useMutation(mutationResetPassword);
 
   const successMessage = (message: string) => {
     messageApi.open({
@@ -127,7 +119,7 @@ export const FormResetPassword = ({ title, token }: FormResetPasswordProps) => {
             htmlType="submit"
             size="large"
             className="uppercase"
-            loading={false}
+            loading={loading}
             block
           >
             kirim

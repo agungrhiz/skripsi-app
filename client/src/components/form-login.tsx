@@ -1,6 +1,7 @@
 "use client";
 
-import { gql, useMutation } from "@apollo/client";
+import { mutationLogin } from "@/lib/graphql/auth";
+import { useMutation } from "@apollo/client";
 import { Alert, Button, Checkbox, Divider, Form, Input } from "antd";
 import { setCookie } from "cookies-next";
 import Image from "next/image";
@@ -22,23 +23,7 @@ export const FormLogin = () => {
     }
   }, []);
 
-  const [login, { loading, error }] = useMutation(
-    gql`
-      mutation Login($input: CredentialsAuthInput!) {
-        login(credentials: $input) {
-          accessToken
-          payload {
-            sub
-            username
-            email
-            role
-            iat
-            exp
-          }
-        }
-      }
-    `
-  );
+  const [login, { loading, error }] = useMutation(mutationLogin)
 
   const onFinish = async (values: any) => {
     try {
@@ -58,8 +43,8 @@ export const FormLogin = () => {
         },
       });
 
-      setCookie("access_token", data.login.accessToken);
-      setCookie("payload_token", data.login.payload);
+      setCookie("access_token", data?.login.accessToken);
+      setCookie("payload_token", data?.login.payload);
       router.push("/dashboard");
     } catch (error) {
       console.error(error);

@@ -1,21 +1,14 @@
 "use client";
 
-import { gql, useMutation } from "@apollo/client";
+import { mutationForgotPassword } from "@/lib/graphql/auth";
+import { useMutation } from "@apollo/client";
 import { Button, Divider, Form, Input, message } from "antd";
 import Link from "next/link";
 
 export const FormForgotPassword = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const [forgotPassword, { loading }] = useMutation(
-    gql`
-      mutation ForgotPassword($email: String!) {
-        forgotPassword(email: $email) {
-          email
-        }
-      }
-    `
-  );
+  const [forgotPassword, { loading }] = useMutation(mutationForgotPassword);
 
   const successMessage = (message: string) => {
     messageApi.open({
