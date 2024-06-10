@@ -19,6 +19,9 @@ export class Gallery {
   @Field(() => Int)
   fkUploadId: number
 
+  @Field(() => String)
+  createdBy: string
+
   @Field(() => Date)
   createdAt: Date
 

@@ -215,12 +215,12 @@ export const ListGallery = () => {
           <Tooltip placement="top" title="Hapus">
             <Button danger icon={<DeleteOutlined />} onClick={showModal} />
             <Modal
-              title="Hapus Item"
+              title="Hapus Gallery"
               open={open}
               onOk={() => handleRemove(record.id)}
               onCancel={handleCancelRemove}
             >
-              <p>Apakah anda yakin ingin menghapus item ini?</p>
+              <p>Apakah anda yakin ingin menghapus galeri ini?</p>
             </Modal>
           </Tooltip>
         </div>

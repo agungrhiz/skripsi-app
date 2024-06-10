@@ -34,6 +34,7 @@ scalar DateTime
 
 type Gallery {
   createdAt: DateTime!
+  createdBy: String!
   description: String
   fkUploadId: Int!
   id: Int!
@@ -45,6 +46,7 @@ type Gallery {
 
 type Item {
   createdAt: DateTime!
+  createdBy: String!
   description: String!
   fkPhotoId: Int!
   id: Int!
@@ -129,7 +131,7 @@ type Upload {
   id: Int!
   name: String!
   size: Int!
-  thumbnailUrl: String!
+  thumbnailUrl: String
   type: String!
   updatedAt: DateTime!
   url: String!

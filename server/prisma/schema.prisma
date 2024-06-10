@@ -11,15 +11,15 @@ datasource db {
 }
 
 model User {
-  id                String   @id @default(uuid())
-  username          String   @unique
-  email             String   @unique
-  passwordHash      String?  @map("password_hash")
-  emailVerified     Boolean  @default(false) @map("email_verified")
-  verificationToken String?  @default(uuid()) @map("verification_token")
+  id                String    @id @default(uuid())
+  username          String    @unique
+  email             String    @unique
+  passwordHash      String?   @map("password_hash")
+  emailVerified     Boolean   @default(false) @map("email_verified")
+  verificationToken String?   @default(uuid()) @map("verification_token")
   role              Role
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
 
   @@map("users")
 }
@@ -27,15 +27,15 @@ model User {
 model Upload {
   id           Int        @id @default(autoincrement())
   url          String
-  thumbnailUrl String     @map("thumbnail_url")
+  thumbnailUrl String?    @map("thumbnail_url")
   name         String
   size         Int
   type         UploadType
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @updatedAt @map("updated_at")
   removedAt    DateTime?  @map("removed_at")
-  item         Item[]
-  gallery      Gallery[]
+  item         Item?
+  gallery      Gallery?
 
   @@map("uploads")
 }
@@ -45,7 +45,7 @@ model Item {
   name        String
   description String
   isPublished Boolean  @default(false) @map("is_published")
-  fkPhotoId   Int      @map("fk_photo_id")
+  fkPhotoId   Int      @unique @map("fk_photo_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   upload      Upload   @relation(fields: [fkPhotoId], references: [id])
@@ -58,7 +58,7 @@ model Gallery {
   title       String?
   description String?
   isPublished Boolean  @default(false) @map("is_published")
-  fkUploadId  Int      @map("fk_upload_id")
+  fkUploadId  Int      @unique @map("fk_upload_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   upload      Upload   @relation(fields: [fkUploadId], references: [id])

@@ -37,6 +37,28 @@ export const queryItems: TypedDocumentNode<{
   }
 `;
 
+export const queryItemsPublished: TypedDocumentNode<{
+  itemsPublished: Item[];
+}> = gql`
+  query ItemsPublished {
+    itemsPublished {
+      id
+      name
+      description
+      isPublished
+      fkPhotoId
+      upload {
+        id
+        url
+        thumbnailUrl
+        name
+        size
+        type
+      }
+    }
+  }
+`;
+
 export const queryItem: TypedDocumentNode<{
   item: Item;
 }> = gql`

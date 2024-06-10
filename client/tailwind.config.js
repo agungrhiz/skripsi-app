@@ -13,7 +13,7 @@ module.exports = {
       animation: {
         cube: 'cube 12s ease-in forwards infinite',
         gradient: 'animated-gradient 15s ease infinite',
-        'spin-slow': 'spin 5s linear infinite',
+        'spin-slow': 'spin 12s linear infinite',
       },
       backgroundImage: {
         'gradient-linear': 'linear-gradient(132deg, #d3374c, #421492, #1b1d2d)',

@@ -10,8 +10,8 @@ export class Upload {
   @Field()
   url: string
 
-  @Field()
-  thumbnailUrl: string
+  @Field({ nullable: true })
+  thumbnailUrl?: string
 
   @Field()
   name: string

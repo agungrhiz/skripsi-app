@@ -19,6 +19,9 @@ export class Item {
   @Field(() => Int)
   fkPhotoId: number
 
+  @Field(() => String)
+  createdBy: string
+
   @Field(() => Date)
   createdAt: Date
 

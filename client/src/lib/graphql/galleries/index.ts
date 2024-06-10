@@ -37,6 +37,28 @@ export const queryGalleries: TypedDocumentNode<{
   }
 `;
 
+export const queryGalleriesPublished: TypedDocumentNode<{
+  galleriesPublished: Gallery[];
+}> = gql`
+  query GalleriesPublished {
+    galleriesPublished {
+      id
+      title
+      description
+      isPublished
+      fkUploadId
+      upload {
+        id
+        url
+        thumbnailUrl
+        name
+        size
+        type
+      }
+    }
+  }
+`;
+
 export const queryGallery: TypedDocumentNode<{
   gallery: Gallery;
 }> = gql`

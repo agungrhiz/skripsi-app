@@ -1,0 +1,11 @@
+.ant-float-btn-group .ant-float-btn-group-wrap {
+  margin-bottom: 0;
+}
+
+.ant-float-btn-default .ant-float-btn-body {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.anticon {
+  color: #fff;
+}
