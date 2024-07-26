@@ -47,37 +47,39 @@ export const ListItemPublished = () => {
   if (!data) return null;
 
   return (
-    <Swiper
-      slidesPerView={1}
-      spaceBetween={10}
-      freeMode={true}
-      loop={setLoop(items.length)}
-      modules={[FreeMode]}
-      breakpoints={{
-        768: {
-          slidesPerView: setSlidesPerView(data.itemsPublished.length, 2),
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: setSlidesPerView(data.itemsPublished.length, 3),
-          spaceBetween: 30,
-        },
-      }}
-    >
-      {items.map((item, index) => (
-        <SwiperSlide key={index}>
-          <FlipCard
-            className="max-w-sm w-full"
-            front={
-              <CardItemFront
-                image={serverUrl + "/uploads?url=" + item.upload.url}
-                title={item.name}
-              />
-            }
-            back={<CardItemBack content={item.description} />}
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="h-screen items-center">
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+        freeMode={true}
+        loop={setLoop(items.length)}
+        modules={[FreeMode]}
+        breakpoints={{
+          768: {
+            slidesPerView: setSlidesPerView(data.itemsPublished.length, 2),
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: setSlidesPerView(data.itemsPublished.length, 3),
+            spaceBetween: 30,
+          },
+        }}
+      >
+        {items.map((item, index) => (
+          <SwiperSlide key={index}>
+            <FlipCard
+              className="max-w-sm w-full"
+              front={
+                <CardItemFront
+                  image={serverUrl + "/uploads?url=" + item.upload.url}
+                  title={item.name}
+                />
+              }
+              back={<CardItemBack content={item.description} />}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
