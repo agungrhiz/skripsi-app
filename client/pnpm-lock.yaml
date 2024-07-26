@@ -10,7 +10,7 @@ dependencies:
     version: 5.1.4(react-dom@18.2.0)(react@18.2.0)
   '@apollo/client':
     specifier: 3.8.0-rc.1
-    version: 3.8.0-rc.1(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.8.0-rc.1(graphql@16.9.0)(react-dom@18.2.0)(react@18.2.0)
   '@apollo/experimental-nextjs-app-support':
     specifier: 0.0.0-commit-473354a
     version: 0.0.0-commit-473354a(@apollo/client@3.8.0-rc.1)(next@13.4.7)(react@18.2.0)
@@ -142,7 +142,7 @@ packages:
       throttle-debounce: 5.0.0
     dev: false
 
-  /@apollo/client@3.8.0-rc.1(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0):
+  /@apollo/client@3.8.0-rc.1(graphql@16.9.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-YqJeoLRqRSX5Rzad6D4NYwRNIlY3cmSVao6kF8WJZ0rb2POf1etFcQ5ocuKlcXtUw+WZlNEGeootV2wqdXwJaw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -160,12 +160,12 @@ packages:
       subscriptions-transport-ws:
         optional: true
     dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.7.1)
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@wry/context': 0.7.3
       '@wry/equality': 0.5.6
       '@wry/trie': 0.4.3
-      graphql: 16.7.1
-      graphql-tag: 2.12.6(graphql@16.7.1)
+      graphql: 16.9.0
+      graphql-tag: 2.12.6(graphql@16.9.0)
       hoist-non-react-statics: 3.3.2
       optimism: 0.17.5
       prop-types: 15.8.1
@@ -185,7 +185,7 @@ packages:
       next: ^13.4.1
       react: ^18
     dependencies:
-      '@apollo/client': 3.8.0-rc.1(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
+      '@apollo/client': 3.8.0-rc.1(graphql@16.9.0)(react-dom@18.2.0)(react@18.2.0)
       next: 13.4.7(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       superjson: 1.13.1
@@ -249,12 +249,12 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: false
 
-  /@graphql-typed-document-node/core@3.2.0(graphql@16.7.1):
+  /@graphql-typed-document-node/core@3.2.0(graphql@16.9.0):
     resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      graphql: 16.7.1
+      graphql: 16.9.0
     dev: false
 
   /@humanwhocodes/config-array@0.11.10:
@@ -864,7 +864,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.9
-      caniuse-lite: 1.0.30001509
+      caniuse-lite: 1.0.30001643
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -938,7 +938,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001509
+      caniuse-lite: 1.0.30001643
       electron-to-chromium: 1.4.446
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
@@ -975,8 +975,8 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  /caniuse-lite@1.0.30001509:
-    resolution: {integrity: sha512-2uDDk+TRiTX5hMcUYT/7CSyzMZxjfGu0vAUjS2g0LSD8UoXOv0LtpH4LxGMemsiPq6LCVIUjNwVM0erkOkGCDA==}
+  /caniuse-lite@1.0.30001643:
+    resolution: {integrity: sha512-ERgWGNleEilSrHM6iUz/zJNSQTP8Mr21wDWpdgvRwcTXGAq6jMtOUPP4dqFPTdKqZ2wKTdtB+uucZ3MRpAUSmg==}
     dev: false
 
   /chalk@4.1.2:
@@ -999,7 +999,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /classnames@2.3.2:
@@ -1684,8 +1684,8 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: false
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -1840,18 +1840,18 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: false
 
-  /graphql-tag@2.12.6(graphql@16.7.1):
+  /graphql-tag@2.12.6(graphql@16.9.0):
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      graphql: 16.7.1
+      graphql: 16.9.0
       tslib: 2.6.0
     dev: false
 
-  /graphql@16.7.1:
-    resolution: {integrity: sha512-DRYR9tf+UGU0KOsMcKAlXeFfX89UiiIZ0dRU3mR0yJfu6OjZqUcp68NnFLnqQU5RexygFoDy1EW+ccOYcPfmHg==}
+  /graphql@16.9.0:
+    resolution: {integrity: sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
     dev: false
 
@@ -2323,7 +2323,7 @@ packages:
       '@next/env': 13.4.7
       '@swc/helpers': 0.5.1
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001509
+      caniuse-lite: 1.0.30001643
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
